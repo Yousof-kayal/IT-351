@@ -1,0 +1,7 @@
+my-job:
+  image: centos
+  stage: test
+  script:
+    - echo "Hello world! Yousof got the runner to run! Look at him go!"
+  tags:
+    - it-351-runner
