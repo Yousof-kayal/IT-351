@@ -1,7 +1,70 @@
-my-job:
-  image: centos
-  stage: test
+stages:
+  - validate
+  - plan
+  - apply
+  - destroy
+
+.terraform_init: &terraform_init |-
+  terraform init -backend-config="bucket=yousof-kayal-tfstate" -backend-config="region=us-east-1" -backend-config="key=terraform.tfstate"
+
+tf-val:
+  image: 
+    name: hashicorp/terraform
+    entrypoint: [""]
+  stage: validate
+  before_script:
+    - *terraform_init
   script:
-    - echo "Hello world! Yousof got the runner to run! Look at him go!"
+    - terraform validate
+  tags:
+    - it-351-runner
+
+tf-plan:
+  image: 
+    name: hashicorp/terraform
+    entrypoint: [""]
+  stage: plan
+  before_script:
+    - *terraform_init
+  script:
+    - terraform plan -out=tfplan.plan
+  artifacts:
+    name: tf-plan
+    paths:
+      - tfplan.plan
+  needs:
+    - job: tf-val
+  tags:
+    - it-351-runner
+
+tf-apply:
+  image: 
+    name: hashicorp/terraform
+    entrypoint: [""]
+  stage: apply
+  before_script:
+    - *terraform_init
+  script:
+    - terraform apply -auto-approve tfplan.plan
+  needs:
+    - job: tf-plan
+  rules:
+    - when: manual
+  tags:
+    - it-351-runner
+
+tf-destroy:
+  image: 
+    name: hashicorp/terraform
+    entrypoint: [""]
+  stage: destroy
+  before_script:
+    - *terraform_init
+  script:
+    - terraform destroy -auto-approve
+  needs:
+    - job: tf-plan
+  rules:
+    - when: manual
   tags:
     - it-351-runner
