@@ -12,7 +12,7 @@ resource "aws_instance" "my_instance" {
     Name = "IsThisThingOn"
 
   }
+}
   output "instance_ip" {
     value = aws_instance.my_instance.public_ip
   }
-}
