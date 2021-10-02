@@ -67,7 +67,7 @@ ansible:
   before_script:
     - chmod 0600 devsecops-key.pem
   script:
-    - ansible-playbook -i ansible-hosts.yml playbook.yml --key-file my-key-pair-name.pem
+    - ansible-playbook -i ansible-hosts.yml playbook.yml --key-file devsecops-key.pem
   needs:
     - job: tf-apply
   tags:
