@@ -2,7 +2,7 @@
 resource "aws_instance" "my_instance" {
   ami           = "ami-087c17d1fe0178315"
   instance_type = "t2.micro"
-  key_name = "devsecops-key"
+  key_name = devsecops-key
 
   root_block_device {
     volume_size = 8
