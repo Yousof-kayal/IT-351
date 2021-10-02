@@ -65,14 +65,14 @@ ansible:
     entrypoint: [""]
   stage: configure
   before_script:
-    - chmod 0600 my-key-pair-name.pem
+    - chmod 0600 devsecops-key.pem
   script:
     - ansible-playbook -i ansible-hosts.yml playbook.yml --key-file my-key-pair-name.pem
   needs:
     - job: tf-apply
   tags:
     - it-351-runner
-    
+
 tf-destroy:
   image: 
     name: hashicorp/terraform
