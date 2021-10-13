@@ -19,7 +19,7 @@
 
   resource "aws_security_group" "SecureGroup" {
     name        = "SecureGroup"
-    description = "Allow TLS inbound traffic"
+    description = "Allow ports 22, 21, 20"
     vpc_id      = "vpc-0d523dcaf41f418a7"
 
     ingress {
