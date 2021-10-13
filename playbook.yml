@@ -18,5 +18,12 @@
         ansible.builtin.systemd:
           name: proftpd
           enabled: yes
+      
+      - name: Create New User
+        ansible.builtin.user:
+          name: devsecops
+          shell: /bin/bash
+          password: helloworld12
+
 
           
