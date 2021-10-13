@@ -2,7 +2,7 @@
       ami           = "ami-00e87074e52e6c9f9"
       instance_type = "t2.micro"
       key_name = "CICD-lab-key"
-      security_groups = "Secure_Group"
+      security_groups = ["${aws_security_group.SecureGroup.name}"]
 
       root_block_device {
           volume_size = 15
@@ -17,10 +17,10 @@
       }
 
 
-  resource "aws_security_group" "Secure_Group" {
-    name        = "Secure_Group"
+  resource "aws_security_group" "SecureGroup" {
+    name        = "SecureGroup"
     description = "Allow TLS inbound traffic"
-    vpc_id      = "default"
+    vpc_id      = "vpc-0d523dcaf41f418a7"
 
     ingress {
         description      = "inbound from 22"
