@@ -4,6 +4,11 @@
     become: 'yes'
     become_user: root
     tasks:
+      - name: Install Dependencies
+        yum:
+          name: epel-release
+          state: latest
+
       - name: Install FTP Server
         yum:
           name: proftpd
