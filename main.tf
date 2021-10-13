@@ -1,7 +1,7 @@
   resource "aws_instance" "PipelineVM" {
       ami           = "ami-00e87074e52e6c9f9"
       instance_type = "t2.micro"
-      key_name = "devsecops-key.pem"
+      key_name = "CICD-lab-key"
       security_groups = ["${aws_security_group.SecureGroup.name}"]
 
       root_block_device {
