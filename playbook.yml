@@ -1,0 +1,22 @@
+  - name: Playbook
+    hosts: all
+    remote_user: centos
+    become: 'yes'
+    become_user: root
+    tasks:
+      - name: Install FTP Server
+        yum:
+          name: proftpd
+          state: latest
+
+      - name: Start FTP Server
+        ansible.builtin.systemd:
+          state: started
+          name: proftpd
+
+      - name: Enable FTP Server
+        ansible.builtin.systemd:
+          name: proftpd
+          enabled: yes
+
+          
