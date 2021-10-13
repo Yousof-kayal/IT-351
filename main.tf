@@ -2,7 +2,7 @@
       ami           = "ami-00e87074e52e6c9f9"
       instance_type = "t2.micro"
       key_name = "CICD-lab-key"
-      security_groups = "${aws_security_group.Secure_Group.name}"
+      security_groups = "Secure_Group"
 
       root_block_device {
           volume_size = 15
