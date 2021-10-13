@@ -65,7 +65,7 @@ ansible:
     entrypoint: [""]
   stage: configure
   before_script:
-    - chmod 0600 devsecops-key.pem
+    - chmod 600 devsecops-key.pem
   script:
     - ansible-playbook -i ansible-hosts.yml playbook.yml --key-file devsecops-key.pem
   needs:
