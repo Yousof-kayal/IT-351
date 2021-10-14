@@ -28,7 +28,7 @@
       - name: Create devsecops user
         user:
           name: devsecops
-          password: "{{ 'password' | password_hash('it351mu') }}"
+          password: "{{ 'it351mu' | password_hash('sha512') }}"
           shell: /bin/zsh
           update_password: on_create
           register: devsecops
