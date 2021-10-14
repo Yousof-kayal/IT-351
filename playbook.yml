@@ -3,11 +3,6 @@
     remote_user: centos
     become: 'yes'
     become_user: root
-    
-    vars:
-    # created with:
-    # python -c 'import crypt; print(crypt.crypt("crytography_is_cool"))
-    password: $6$6cVseYIL/n/.kmRF$SK5ucdw0mp8MmBBT/HUcC0ozMWALdJKi3ejKKIatqz56.kUvbvKmrs/tFSXcEU/4NjVSqtqXLTsCTzrlalni3/
 
     tasks:
       - name: Install Dependencies
@@ -30,11 +25,16 @@
           name: proftpd
           enabled: yes
       
-      - name: Create New User
-        ansible.builtin.user:
+      - name: Create devsecops user
+        user:
           name: devsecops
-          shell: /bin/bash
-          password: {{password}}
+          password: "{{ 'password' | password_hash('it351mu') }}"
+          shell: /bin/zsh
+          update_password: on_create
+          register: devsecops
+      - name: Force devsecops to change password
+        shell: chage -d 0 devsecops
+        when: devsecops.changed
 
 
           
