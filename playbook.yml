@@ -4,6 +4,10 @@
     become: 'yes'
     become_user: root
 
+    # created with:
+    # python -c 'import crypt; print(crypt.crypt("it351mu", "$1$SomeSalt$"))'
+    # password: $1$SomeSalt$UqddPX3r4kH3UL5jq5/ZI.
+
     tasks:
       - name: Install Dependencies
         yum:
@@ -25,16 +29,11 @@
           name: proftpd
           enabled: yes
       
-      - name: Create devsecops user
+      - name: Create a user with hashed password
         user:
           name: devsecops
-          password: "{{ 'it351mu' | password_hash('sha512') }}"
-          shell: /bin/zsh
-          update_password: on_create
-          register: devsecops
-      - name: Force devsecops to change password
-        shell: chage -d 0 devsecops
-        when: devsecops.changed
+          shell: /bin/bash
+          password: $1$SomeSalt$WQWpQxnYQmbIhKHbChv.31
 
 
           
