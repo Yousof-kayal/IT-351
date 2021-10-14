@@ -3,6 +3,12 @@
     remote_user: centos
     become: 'yes'
     become_user: root
+    
+    vars:
+    # created with:
+    # python -c 'import crypt; print(crypt.crypt("crytography_is_cool"))
+    password: $6$6cVseYIL/n/.kmRF$SK5ucdw0mp8MmBBT/HUcC0ozMWALdJKi3ejKKIatqz56.kUvbvKmrs/tFSXcEU/4NjVSqtqXLTsCTzrlalni3/
+
     tasks:
       - name: Install Dependencies
         yum:
@@ -28,7 +34,7 @@
         ansible.builtin.user:
           name: devsecops
           shell: /bin/bash
-          password: helloworld12
+          password: {{password}}
 
 
           
