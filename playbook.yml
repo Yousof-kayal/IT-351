@@ -4,10 +4,6 @@
     become: 'yes'
     become_user: root
 
-    # created with:
-    # python -c 'import crypt; print(crypt.crypt("it351mu", "$1$SomeSalt$"))'
-    # password: $1$SomeSalt$UqddPX3r4kH3UL5jq5/ZI.
-
     tasks:
       - name: Install Dependencies
         yum:
