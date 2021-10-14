@@ -33,7 +33,7 @@
         user:
           name: devsecops
           shell: /bin/bash
-          password: $1$SomeSalt$WQWpQxnYQmbIhKHbChv.31
+          password: it351mu
 
 
           
