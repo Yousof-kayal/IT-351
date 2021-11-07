@@ -83,6 +83,7 @@ owasp-dc:
   script:
     - /usr/share/dependency-check/bin/dependency-check.sh --project Test --out . --scan . --enableExperimental . --failOnCVSS 7
   artifacts:
+    when: always
     paths:
       - dependency-check-report.html
     expire_in: 1 week
