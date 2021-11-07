@@ -2,8 +2,8 @@ stages:
   - validate
   - plan
   - apply
-  - "Dependency Check"
   - configure
+  - "Dependency Check"
   - destroy
 
 .terraform_init: &terraform_init |-
