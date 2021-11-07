@@ -81,7 +81,7 @@ owasp-dc:
     name: owasp/dependency-check
     entrypoint: [""]
   script:
-    - /usr/share/dependency-check/bin/dependency-check.sh --project Test --out . --scan . --enableExperimental
+    - /usr/share/dependency-check/bin/dependency-check.sh --project Test --out . --scan . --enableExperimental . --failOnCVSS 7
   artifacts:
     paths:
       - dependency-check-report.html
