@@ -4,6 +4,7 @@ stages:
   - apply
   - configure
   - "Dependency Check"
+  - analyze
   - destroy
 
 .terraform_init: &terraform_init |-
@@ -49,12 +50,15 @@ tf-apply:
   script:
     - terraform apply -auto-approve tfplan.plan
     - terraform output instance_ip >> ansible-hosts.yml
+    - echo SONARQUBE_IP=$(terraform output --raw sonarqube_ip) sonarqube.env
   needs:
     - job: tf-plan
   rules:
     - when: manual
   artifacts:
     name: ansible-hosts
+    reports: 
+      dotenv: sonarqube.env
     paths:
       - ansible-hosts.yml
   tags:
@@ -76,6 +80,7 @@ ansible:
     - it-351-runner
 
 owasp-dc:
+  allow_failure: true
   stage: "Dependency Check"
   image:
     name: owasp/dependency-check
@@ -87,6 +92,30 @@ owasp-dc:
     paths:
       - dependency-check-report.html
     expire_in: 1 week
+  tags:
+    - it-351-runner
+
+sonarqube:
+  allow_failure: true
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  stage: analyze
+  needs:
+    - job: tf-apply
+      artifacts: true
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - sonar-scanner -Dsonar.qualitygate.wait=true -
+      Dsonar.host.url=http://${SONARQUBE_IP}:9000
+  only:
+    - main
   tags:
     - it-351-runner
 
