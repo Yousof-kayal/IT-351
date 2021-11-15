@@ -50,7 +50,7 @@ tf-apply:
   script:
     - terraform apply -auto-approve tfplan.plan
     - terraform output instance_ip >> ansible-hosts.yml
-    - echo SONARQUBE_IP=$(terraform output --raw sonarqube_ip) sonarqube.env
+    - echo SONARQUBE_IP=$(terraform output --raw sonarqube_ip) >> sonarqube.env
   needs:
     - job: tf-plan
   rules:
