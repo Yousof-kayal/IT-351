@@ -112,7 +112,8 @@ sonarqube:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.host.url=http://${sonarqube_ip}:9000
+    - sonar-scanner -Dsonar.qualitygate.wait=true -
+      Dsonar.host.url=http://${sonarqube_ip}:9000
   only:
     - main
   tags:

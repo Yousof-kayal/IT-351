@@ -30,6 +30,6 @@
           value = aws_instance.PipelineVM.public_ip
       }
 
-      output "sonarqube_ip"{
+      output "sonarqube_ip" {
           value = aws_instance.sonarqube_instance.public_ip
       }
