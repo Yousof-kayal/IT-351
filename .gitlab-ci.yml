@@ -70,7 +70,7 @@ ansible:
     entrypoint: [""]
   stage: configure
   before_script:
-    - sleep 90
+    - sleep 90 
     - chmod 0600 CICD-lab-key.pem
   script:
     - ansible-playbook -i ansible-hosts.yml playbook.yml --key-file CICD-lab-key.pem
@@ -112,7 +112,7 @@ sonarqube:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.host.url=http://${sonarqube_ip}:9000
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.host.url=http://${SONARQUBE_IP}:9000
   only:
     - main
   tags:
