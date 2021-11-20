@@ -8,7 +8,8 @@
       }
 
       tags = {
-          Name = "PipelineInstance"
+          Name = "PipelineInstance" ,
+          Lab7 = "in-progress"
       }
   }
   
