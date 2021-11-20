@@ -9,7 +9,7 @@
 
       tags = {
           Name = "PipelineInstance" ,
-          Lab7 = "in-progress"
+          Lab7 = "completed"
       }
   }
   
