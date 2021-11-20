@@ -19,3 +19,12 @@ of CentOS 7"
     its('image_id') { should eq 'ami-00e87074e52e6c9f9' }
     end
 end
+control "check-lab-7-tags" do
+    impact 0.3
+    title "Check GitLab Runner Tags"
+    desc "Check for the soon-to-be-required Lab 7 tag on our EC2 instance"
+    
+    describe aws_ec2_instance(name: 'ProfEdgarsFirstTFInstance') do
+        its('tags') { should include(key: 'Lab7', value: 'completed') }
+    end
+end
