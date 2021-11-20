@@ -5,6 +5,7 @@ stages:
   - configure
   - "Dependency Check"
   - analyze
+  - "Continuous Compliance"
   - destroy
 
 .terraform_init: &terraform_init |-
@@ -116,6 +117,18 @@ sonarqube:
     - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.host.url=http://${SONARQUBE_IP}:9000 -Dsonar.dependencyCheck.reportPath=dependency-check-report.xml
   only:
     - main
+  tags:
+    - it-351-runner
+
+chef-inspec:
+  stage: "Continuous Compliance"
+  image:
+    name: chef/inspec
+    entrypoint: [""]
+  script:
+    - inspec detect -t aws:// --chef-license accept
+    - inspec vendor lab-7-profile
+    - inspec exec lab-7-profile -t aws://
   tags:
     - it-351-runner
 

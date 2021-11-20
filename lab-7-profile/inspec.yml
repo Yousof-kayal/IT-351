@@ -1,0 +1,9 @@
+name: lab-7-profile
+title: Lab 7 AWS InSpec profile
+version: 0.1.0
+inspec_version: '>= 4.6.9'
+depends:
+  - name: inspec-aws
+    url: https://github.com/inspec/inspec-aws/archive/main.tar.gz
+supports:
+  - platform: aws
