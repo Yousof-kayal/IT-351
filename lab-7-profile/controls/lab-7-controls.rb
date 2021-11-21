@@ -24,7 +24,7 @@ control "check-lab-7-tags" do
     title "Check GitLab Runner Tags"
     desc "Check for the soon-to-be-required Lab 7 tag on our EC2 instance"
     
-    describe aws_ec2_instance(name: 'ProfEdgarsFirstTFInstance') do
+    describe aws_ec2_instance(name: 'PipelineInstance') do
         its('tags') { should include(key: 'Lab7', value: 'completed') }
     end
 end
