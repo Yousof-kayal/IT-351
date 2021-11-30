@@ -19,6 +19,10 @@ trivy:
     entrypoint: [""]
   script:
     - trivy image hashicorp/terraform
+    - trivy image mullnerz/ansible-playbook
+    - trivy image owasp/dependency-check
+    - trivy image sonarsource/sonar-scanner-cli:latest
+    - trivy image chef/inspec
   tags:
     - it-351-runner
 
