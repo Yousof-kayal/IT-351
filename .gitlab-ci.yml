@@ -1,4 +1,5 @@
 stages:
+  - "Image Scanning"
   - validate
   - plan
   - apply
@@ -11,7 +12,31 @@ stages:
 .terraform_init: &terraform_init |-
   terraform init -backend-config="bucket=yousof-kayal-tfstate" -backend-config="region=us-east-1" -backend-config="key=terraform.tfstate"
 
+trivy:
+  stage: "Image Scanning"
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  script:
+    - trivy image -f json -o results-terraform.json hashicorp/terraform 
+    - trivy image -f json -o results-ansible.json mullnerz/ansible-playbook 
+    - trivy image -f json -o results-owasp.json owasp/dependency-check 
+    - trivy image -f json -o results-sonar.json sonarsource/sonar-scanner-cli:latest 
+    - trivy image -f json -o results-chef.json chef/inspec 
+  artifacts:
+    when: always
+    name: trivy
+    paths:
+      - results-terraform.json
+      - results-ansible.json
+      - results-owasp.json
+      - results-sonar.json
+      - results-chef.json
+  tags:
+    - it-351-runner
+
 tf-val:
+  when: manual
   image: 
     name: hashicorp/terraform
     entrypoint: [""]
