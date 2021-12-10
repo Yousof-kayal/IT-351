@@ -3,7 +3,7 @@ stages:
   - plan
   - apply
   - configure
-  - "Dependency Check"
+  - owasp
   - analyze
   - "Continuous Compliance"
   - destroy
@@ -82,7 +82,7 @@ ansible:
 
 owasp-dc:
   allow_failure: true
-  stage: "Dependency Check"
+  stage: owasp
   image:
     name: owasp/dependency-check
     entrypoint: [""]
