@@ -46,8 +46,6 @@ tf-val:
     - terraform validate
   rules:
     - when: manual
-  needs:
-    - job: trivy
   tags:
     - it-351-runner
 
