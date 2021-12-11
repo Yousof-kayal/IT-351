@@ -34,7 +34,6 @@ trivy:
     - it-351-runner
 
 tf-val:
-  when: manual
   image: 
     name: hashicorp/terraform
     entrypoint: [""]
