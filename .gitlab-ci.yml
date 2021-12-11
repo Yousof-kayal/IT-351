@@ -19,8 +19,7 @@ trivy:
     entrypoint: [""]
   script:
     - trivy image -f json -o results-terraform.json hashicorp/terraform 
-    - trivy image -f json -o results-ansible.json mullnerz/ansible-playbook 
-    - trivy image -f json -o results-owasp.json owasp/dependency-check 
+    - trivy image -f json -o results-ansible.json mullnerz/ansible-playbook  
     - trivy image -f json -o results-sonar.json sonarsource/sonar-scanner-cli:latest 
     - trivy image -f json -o results-chef.json chef/inspec 
   artifacts:
@@ -29,7 +28,6 @@ trivy:
     paths:
       - results-terraform.json
       - results-ansible.json
-      - results-owasp.json
       - results-sonar.json
       - results-chef.json
   tags:
