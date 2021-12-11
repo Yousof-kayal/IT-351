@@ -121,6 +121,14 @@ owasp-dc:
   tags:
     - it-351-runner
 
+owasp-zap:
+  stage: owasp
+  image:
+    name: owasp/zap2docker-stable
+    entrypoint: [""]
+  script:
+    - zap-full-scan.py -t https://www.github.com
+
 sonarqube:
   allow_failure: true
   image:
