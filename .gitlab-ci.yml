@@ -36,7 +36,6 @@ trivy:
     - it-351-runner
 
 tf-val:
-  when: manual
   image: 
     name: hashicorp/terraform
     entrypoint: [""]
@@ -127,7 +126,7 @@ owasp-zap:
     name: owasp/zap2docker-stable
     entrypoint: [""]
   script:
-    - zap-full-scan.py -t https://www.github.com
+    - zap-full-scan.py -t https://github.com
   tags:
     - it-351-runner
 
